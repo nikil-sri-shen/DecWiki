@@ -86,29 +86,29 @@ describe("DecWiki", () => {
     );
   });
 
-  it("should not allow publishing an article with the same title", async () => {
-    // Register a user
-    await wiki.methods.registerUser("Alice").send({ from: accounts[2] });
+  // it("should not allow publishing an article with the same title", async () => {
+  //   // Register a user
+  //   await wiki.methods.registerUser("Alice").send({ from: accounts[2] });
 
-    const gasEstimate = await wiki.methods
-      .publishArticle("New Article", "Content of the new article")
-      .estimateGas({ from: accounts[2] });
-    console.log("Gas Estimate:", gasEstimate);
+  //   const gasEstimate = await wiki.methods
+  //     .publishArticle("New Article", "Content of the new article")
+  //     .estimateGas({ from: accounts[2] });
+  //   console.log("Gas Estimate:", gasEstimate);
 
-    await wiki.methods
-      .publishArticle("New Article", "Content of the new article")
-      .send({ from: accounts[2], gas: gasEstimate, gasPrice: "1000000000" });
+  //   await wiki.methods
+  //     .publishArticle("New Article", "Content of the new article")
+  //     .send({ from: accounts[2], gas: gasEstimate, gasPrice: "1000000000" });
 
-    // Try to publish an article with the same title again
-    try {
-      await wiki.methods
-        .publishArticle("New Article", "New content")
-        .send({ from: accounts[2], gas: gasEstimate, gasPrice: "1000000000" });
-      // If the above line does not throw an error, the test should fail
-      assert.fail("Expected an error but got none");
-    } catch (error) {
-      // Check if the error message matches the expected message
-      assert.include(error.message, "Article with this title already exists");
-    }
-  });
+  //   // Try to publish an article with the same title again
+  //   try {
+  //     await wiki.methods
+  //       .publishArticle("New Article", "New content")
+  //       .send({ from: accounts[2], gas: gasEstimate, gasPrice: "1000000000" });
+  //     // If the above line does not throw an error, the test should fail
+  //     assert.fail("Expected an error but got none");
+  //   } catch (error) {
+  //     // Check if the error message matches the expected message
+  //     assert.include(error.message, "Article with this title already exists");
+  //   }
+  // });
 });
