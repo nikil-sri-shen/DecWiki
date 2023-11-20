@@ -41,7 +41,10 @@ contract DecWiki {
         users[msg.sender] = User(username, true);
     }
 
-    function publishArticle(string memory title, string memory content) public onlyRegisteredUser {
+    function publishArticle(
+        string memory title,
+        string memory content
+    ) public onlyRegisteredUser {
         // require(articlesByTitle[title].author == address(0), "Article with this title already exists");
         articlesByTitle[title] = Article(title, content, msg.sender, 0, false);
         articleCount++;
@@ -65,10 +68,30 @@ contract DecWiki {
         }
     }
 
-    function queryArticle(string memory title) public view returns (address author, string memory retrievedTitle, string memory content, uint256 votes, bool isVerified) {
+    function queryArticle(
+        string memory title
+    )
+        public
+        view
+        returns (
+            address author,
+            string memory retrievedTitle,
+            string memory content,
+            uint256 votes,
+            bool isVerified
+        )
+    {
         require(bytes(title).length > 0, "Title cannot be empty");
         Article storage article = articlesByTitle[title];
         require(article.author != address(0), "Article does not exist");
-        return (article.author, article.title, article.content, article.votes, article.isVerified);
+        return (
+            article.author,
+            article.title,
+            article.content,
+            article.votes,
+            article.isVerified
+        );
     }
 }
+
+//https://sepolia.infura.io/v3/a7b26022e503446196b3d8b73e8b2d40
